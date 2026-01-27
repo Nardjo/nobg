@@ -2,6 +2,9 @@
 
 Extension Raycast pour supprimer l'arrière-plan des images localement avec rembg.
 
+![Raycast Extension](https://img.shields.io/badge/Raycast-Extension-red)
+![License MIT](https://img.shields.io/badge/License-MIT-blue)
+
 ## Fonctionnalités
 
 - Traitement 100% local (pas d'API externe)
