@@ -5,7 +5,10 @@
   "description": "Remove background from images using local rembg",
   "icon": "icon.png",
   "author": "jordanbastin",
-  "categories": ["Design Tools", "Productivity"],
+  "categories": [
+    "Design Tools",
+    "Productivity"
+  ],
   "license": "MIT",
   "commands": [
     {
@@ -31,7 +34,7 @@
   "devDependencies": {
     "@raycast/eslint-config": "^1.0.11",
     "@types/node": "22.13.0",
-    "@types/react": "18.3.18",
+    "@types/react": "18.2.79",
     "eslint": "^8.57.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3"
