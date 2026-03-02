@@ -1,22 +1,22 @@
 import {
-  List,
   Action,
   ActionPanel,
-  showToast,
-  Toast,
-  getPreferenceValues,
-  showHUD,
-  open,
-  getSelectedFinderItems,
-  Icon,
   Color,
   environment,
+  getPreferenceValues,
+  getSelectedFinderItems,
+  Icon,
+  List,
+  open,
+  showHUD,
+  showToast,
+  Toast,
 } from "@raycast/api";
-import { homedir } from "os";
-import { join, basename } from "path";
-import { existsSync, mkdirSync, readdirSync, statSync, readFileSync } from "fs";
 import { execSync } from "child_process";
-import { useState, useEffect } from "react";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync } from "fs";
+import { homedir } from "os";
+import { basename, join } from "path";
+import { useEffect, useState } from "react";
 
 // Load .env file
 function loadEnv(): Record<string, string> {
@@ -40,9 +40,14 @@ function loadEnv(): Record<string, string> {
 const ENV = loadEnv();
 
 // Configurable paths
-const REMBG_PATH = process.env.REMBG_PATH || ENV.REMBG_PATH || join(homedir(), ".local/bin/rembg");
-const IMAGES_DIR = process.env.IMAGES_DIR || ENV.IMAGES_DIR || join(homedir(), "Downloads");
-const OUTPUT_BASE_DIR = process.env.OUTPUT_DIR || ENV.OUTPUT_DIR || join(homedir(), "Downloads");
+const REMBG_PATH =
+  process.env.REMBG_PATH ||
+  ENV.REMBG_PATH ||
+  join(homedir(), ".local/bin/rembg");
+const IMAGES_DIR =
+  process.env.IMAGES_DIR || ENV.IMAGES_DIR || join(homedir(), "Downloads");
+const OUTPUT_BASE_DIR =
+  process.env.OUTPUT_DIR || ENV.OUTPUT_DIR || join(homedir(), "Downloads");
 
 interface Preferences {
   outputFolder: string;
@@ -114,7 +119,10 @@ async function removeBackground(imagePath: string): Promise<string> {
   }
 
   const timestamp = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
-  const originalName = basename(imagePath, imagePath.substring(imagePath.lastIndexOf(".")));
+  const originalName = basename(
+    imagePath,
+    imagePath.substring(imagePath.lastIndexOf(".")),
+  );
   const filename = `${originalName}-no-bg-${timestamp}.png`;
   const outputPath = join(outputDir, filename);
 
@@ -140,7 +148,9 @@ export default function Command() {
       try {
         const finderItems = await getSelectedFinderItems();
         if (finderItems.length > 0) {
-          const imageItems = finderItems.filter((item) => isImageFile(item.path));
+          const imageItems = finderItems.filter((item) =>
+            isImageFile(item.path),
+          );
           if (imageItems.length > 0) {
             // Process directly
             setDirectImage(imageItems[0].path);
@@ -170,7 +180,8 @@ export default function Command() {
 
     try {
       const outputPath = await removeBackground(imagePath);
-      const outputFolder = getPreferenceValues<Preferences>().outputFolder || "bg-removed";
+      const outputFolder =
+        getPreferenceValues<Preferences>().outputFolder || "bg-removed";
 
       toast.style = Toast.Style.Success;
       toast.title = "Background removed!";
@@ -188,7 +199,10 @@ export default function Command() {
   }
 
   return (
-    <List isLoading={isLoading || directImage !== null} searchBarPlaceholder="Search images in Downloads...">
+    <List
+      isLoading={isLoading || directImage !== null}
+      searchBarPlaceholder="Search images in Downloads..."
+    >
       <List.EmptyView
         title="No images found"
         description="No images in Downloads folder"
